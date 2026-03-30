@@ -3,8 +3,7 @@ resource "google_billing_budget" "budget" {
   display_name    = "Monthly Budget Alert"
   amount {
     specified_amount {
-      currency_code = var.billing_alert_currency_code
-      units         = var.billing_alert_amount
+      units = var.billing_alert_amount
     }
   }
   threshold_rules {

@@ -6,6 +6,7 @@ resource "google_service_account" "container_host" {
 resource "google_compute_disk" "container_host_boot_disk" {
   name  = "container-host-boot-disk"
   type  = "pd-standard"
+  zone  = var.gcp_zone
   image = data.google_compute_image.container_optimized.self_link
   size  = 10
   labels = {
@@ -17,6 +18,7 @@ resource "google_compute_disk" "container_host_boot_disk" {
 resource "google_compute_disk" "container_host_data_disk" {
   name = "container-host-data-disk"
   type = "pd-standard"
+  zone = var.gcp_zone
   size = 20
   labels = {
     managed_by = "terraform"
@@ -27,6 +29,7 @@ resource "google_compute_disk" "container_host_data_disk" {
 resource "google_compute_instance" "container_host" {
   name                      = "containerhost01"
   machine_type              = var.vm_size
+  zone                      = var.gcp_zone
   allow_stopping_for_update = true
 
   tags = var.container_host_network_tags
